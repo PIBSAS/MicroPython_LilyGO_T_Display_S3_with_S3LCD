@@ -36,7 +36,7 @@ jobs:
 
     - name: Modificar el manifest.py para agregar ejemplos
       run: |
-          echo 'freeze("$(USER_C_MODULES)/s3lcd/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+          echo 'freeze("$(GITHUB_WORKSPACE)/s3lcd/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
 
 
     - name: Instalar dependencias

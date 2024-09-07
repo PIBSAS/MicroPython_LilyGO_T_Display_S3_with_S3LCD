@@ -36,7 +36,10 @@ jobs:
 
     - name: Modificar el manifest.py para agregar ejemplos
       run: |
-          echo 'freeze("$(GITHUB_WORKSPACE)/s3lcd/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples/configs/t-display-s3", "tft_config.py")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples/configs/t-display-s3", "tft_buttons.py")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+
 
 
     - name: Instalar dependencias

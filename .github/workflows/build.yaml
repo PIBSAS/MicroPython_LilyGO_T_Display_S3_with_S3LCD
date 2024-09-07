@@ -30,16 +30,7 @@ jobs:
 
     - name: Clonar s3lcd
       run: git clone https://github.com/russhughes/s3lcd.git
-    
-    - name: Cambiar permisos del script de modificación
-      run: chmod +x /home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/modify_manifest.py
-
-    - name: Modificar el manifest.py para agregar ejemplos y configuraciones
-      run: python /home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/modify_manifest.py
-
-    - name: Mostrar el contenido del manifest.py
-      run: cat /home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/manifest.py
-      
+          
     - name: Instalar dependencias
       run: |
        sudo apt-get update

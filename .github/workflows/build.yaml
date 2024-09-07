@@ -34,6 +34,11 @@ jobs:
     - name: Listar archivos en s3lcd
       run: ls -R $GITHUB_WORKSPACE/s3lcd/src
 
+    - name: Modificar el manifest.py para agregar ejemplos
+      run: |
+          echo 'freeze("$(USER_C_MODULES)/s3lcd/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+
+
     - name: Instalar dependencias
       run: |
        sudo apt-get update

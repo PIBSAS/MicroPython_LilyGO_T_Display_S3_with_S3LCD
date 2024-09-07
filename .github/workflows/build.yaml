@@ -33,8 +33,8 @@ jobs:
     
     - name: Modificar el manifest.py para agregar ejemplos y configuraciones
       run: |
-        echo 'freeze("examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
-        echo 'freeze(".", ("tft_buttons.py", "tft_config.py"))' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("$GITHUB_WORKSPACE/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("$GITHUB_WORKSPACE", ("tft_buttons.py", "tft_config.py"))' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
         cat $GITHUB_WORKSPACE/s3lcd/manifest.py
 
     - name: Instalar dependencias

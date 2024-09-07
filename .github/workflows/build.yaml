@@ -32,13 +32,16 @@ jobs:
       run: git clone https://github.com/russhughes/s3lcd.git
 
     - name: Listar archivos en s3lcd
-      run: ls -R $GITHUB_WORKSPACE/s3lcd/src
+      run: ls -R $GITHUB_WORKSPACE/
 
+    - name: Renombrar carpeta t-display-s3 a t_display_s3
+      run: mv $GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3 $GITHUB_WORKSPACE/s3lcd/examples/configs/t_display_s3
+  
     - name: Modificar el manifest.py para agregar ejemplos
       run: |
         echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
-        # echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples/configs/t-display-s3", "tft_config.py")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
-        # echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples/configs/t-display-s3", "tft_buttons.py")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples/configs/t_display_s3", "tft_config.py")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze("/home/runner/work/MicroPython_LilyGO_T_Display_S3/MicroPython_LilyGO_T_Display_S3/s3lcd/examples/configs/t_display_s3", "tft_buttons.py")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
 
 
 

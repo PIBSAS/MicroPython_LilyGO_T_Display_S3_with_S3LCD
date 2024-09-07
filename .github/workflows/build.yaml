@@ -30,13 +30,11 @@ jobs:
 
     - name: Clonar s3lcd
       run: git clone https://github.com/russhughes/s3lcd.git
-
-   # - name: Listar archivos en s3lcd
-   #   run: ls -R $GITHUB_WORKSPACE/
-  
-    - name: Modificar el manifest.py para agregar ejemplos
+    
+    - name: Modificar el manifest.py para agregar ejemplos y configuraciones
       run: |
         echo 'freeze("examples")' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
+        echo 'freeze(".", ("tft_buttons.py", "tft_config.py"))' >> $GITHUB_WORKSPACE/s3lcd/manifest.py
         cat $GITHUB_WORKSPACE/s3lcd/manifest.py
 
     - name: Instalar dependencias

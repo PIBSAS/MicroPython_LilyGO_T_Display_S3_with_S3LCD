@@ -1,4 +1,4 @@
-# ESP32-S3-WROOM-1-N16R8
+# MicroPython + S3LCD para LilyGo T-Display S3 ESP32-S3-WROOM-1-N16R8
 Basado en--Based on:
 - [Mythologyli](https://github.com/Mythologyli/MicroPython-ESP32-S3-N16R8)
 

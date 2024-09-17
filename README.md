@@ -1,7 +1,4 @@
 # MicroPython + S3LCD para LilyGo T-Display S3 ESP32-S3-WROOM-1-N16R8
-Basado en--Based on:
-- [Mythologyli](https://github.com/Mythologyli/MicroPython-ESP32-S3-N16R8)
-
 
 ## Datasheet:
 
@@ -10,7 +7,7 @@ Basado en--Based on:
 ## Docs:
 - [ESP-S3 User Guide DevKitC v1.1](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/hw-reference/esp32s3/user-guide-devkitc-1.html)
 
-![ESP32-S3-WROOM-1 N16R8 DevKitC v1.1](ESP32-S3_DevKitC-1.1.png)
+![LilyGO T-Display S3](T-DISPLAY-S3.jpg)
 
 ## ESP-IDF:
 - [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/get-started/linux-macos-setup.html)

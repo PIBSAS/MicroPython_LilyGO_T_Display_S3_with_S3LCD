@@ -16,7 +16,7 @@
 - [MicroPython](https://github.com/micropython/micropython/blob/master/ports/esp32/README.md)
 
 
-# MicroPython ESP32-S3 N16R8
+# MicroPython LilyGO T-Display S3 + S3LCD Driver
 
 # Probado en -- Tested on Ubuntu WSL 2024:
 
@@ -43,7 +43,7 @@
 ### Clonar ésta repo -- Clone this repo, MicroPython y ESP-IDF compatible con MicroPython(En la actualidad "Micropython 1.24" 5.04 a 5.2.2):
 
 - ```bash
-  git clone https://github.com/PIBSAS/ESP32-S3-WROOM-1-N16R8.git
+  git clone https://github.com/PIBSAS/MicroPython_LilyGO_T_Display_S3.git
   ```
   ![Clone Repo](media/Clone_Repo.png)
   
@@ -280,16 +280,8 @@
 
 - [micropython/micropython/issues/8635](https://github.com/micropython/micropython/issues/8635#issuecomment-1129218506)
 
-## Resultado -- Result:
-![ESP32-S3-WROOM-1 N16R8 Compilation](Captura.png)
-### ESP-IDF v5.0.4:
-![ESP32S3-WROOM-1 N16R8 18Mb RAM 8Mb PSRAM](media/Resultado.png)
-
-### ESP-IDF v5.2:
-![ESP32S3-WROOM-1 N16R8 18Mb RAM 8Mb PSRAM](media/Resultado_5_2.png)
-
 # The Lazy way:
-- Just Download the Firmware ZIP file(old now[August 2024]), Unzip and read the How To text file.
+- Just Download the bin Firmware files.
 
 > :warning: Files need to be where is esptool or type full path of files ⚠️
 
@@ -315,7 +307,6 @@
 - ```bash
   esptool -b 460800 --before default_reset --after no_reset --chip esp32s3  write_flash --flash_mode dio --flash_size 16MB --flash_freq 80m 0x0 bootloader/bootloader.bin 0x8000 partition_table/partition-table.bin 0x10000 micropython.bin
   ```
-
 
 
 > :warning: For pip on newest OSes you need to make virtual environment:

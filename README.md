@@ -339,4 +339,4 @@ Once activated install esptool:
 # Smartconfig Apps from:
 - [ESP-Touch for Android](https://www.espressif.com/en/support/download/apps)
 - [ESP-Touch for iOS](https://www.espressif.com/en/support/download/apps)
-- Smartconfig example in [smartconfig_example](smartconfig_example) folder in this repo.
+- Smartconfig example in [examples](examples/smart.py) folder in this repo.

@@ -3,16 +3,13 @@ hello.py
 
     Writes "Hello!" in random colors at random locations on the display.
 """
-
 import random
 import time
-
 import vga1_8x8 as font
 import tft_config
 import s3lcd
 
 tft = tft_config.config(tft_config.WIDE)
-
 
 def center(text, fg=s3lcd.WHITE, bg=s3lcd.BLACK):
     """
@@ -27,7 +24,6 @@ def center(text, fg=s3lcd.WHITE, bg=s3lcd.BLACK):
         fg,
         bg,
     )
-
 
 def main():
     """
@@ -74,6 +70,5 @@ def main():
 
     finally:
         tft_config.deinit(tft)
-
 
 main()

@@ -100,29 +100,6 @@ jobs:
       run: |
         cp -r ESP32_GENERIC_S3_N16R8 micropython/ports/esp32/boards/
 
-    - name: Compilar MicroPython + S3LCD
-      continue-on-error: true
-      run: |
-        source esp/esp-idf/export.sh
-        cd micropython/
-        make -C mpy-cross
-        export IDF_TARGET=esp32s3
-        cd ports/esp32/
-        idf.py -D MICROPY_BOARD=ESP32_GENERIC_S3_N16R8 \
-               -D MICROPY_BOARD_DIR="$GITHUB_WORKSPACE/micropython/ports/esp32/boards/ESP32_GENERIC_S3_N16R8" \
-               -D USER_C_MODULES="$GITHUB_WORKSPACE/s3lcd/src/micropython.cmake" \
-               -D MICROPY_FROZEN_MANIFEST="$GITHUB_WORKSPACE/s3lcd/manifest.py" \
-               -B build-ESP32_GENERIC_S3_N16R8 build
-
-    
-    - name: Mover binarios MicroPython + S3LCD
-      if: success() || failure()
-      run: |
-        mkdir -p ./artifacts
-        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/micropython.bin ./artifacts/micropython.bin || true
-        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/bootloader/bootloader.bin ./artifacts/bootloader.bin || true
-        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/partition_table/partition-table.bin ./artifacts/partition-table.bin || true
-
     - name: Compile with S3LCD + SmartConfig
       continue-on-error: true
       run: |
@@ -145,6 +122,29 @@ jobs:
         cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/micropython.bin ./artifacts/micropython_smart.bin || true
         cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/bootloader/bootloader.bin ./artifacts/bootloader_smart.bin || true
         cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/partition_table/partition-table.bin ./artifacts/partition-table_smart.bin || true
+
+    - name: Compilar MicroPython + S3LCD
+      continue-on-error: true
+      run: |
+        source esp/esp-idf/export.sh
+        cd micropython/
+        make -C mpy-cross
+        export IDF_TARGET=esp32s3
+        cd ports/esp32/
+        idf.py -D MICROPY_BOARD=ESP32_GENERIC_S3_N16R8 \
+               -D MICROPY_BOARD_DIR="$GITHUB_WORKSPACE/micropython/ports/esp32/boards/ESP32_GENERIC_S3_N16R8" \
+               -D USER_C_MODULES="$GITHUB_WORKSPACE/s3lcd/src/micropython.cmake" \
+               -D MICROPY_FROZEN_MANIFEST="$GITHUB_WORKSPACE/s3lcd/manifest.py" \
+               -B build-ESP32_GENERIC_S3_N16R8_no_smart build
+
+    
+    - name: Mover binarios MicroPython + S3LCD
+      if: success() || failure()
+      run: |
+        mkdir -p ./artifacts
+        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/micropython.bin ./artifacts/micropython.bin || true
+        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/bootloader/bootloader.bin ./artifacts/bootloader.bin || true
+        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/partition_table/partition-table.bin ./artifacts/partition-table.bin || true
     
     - name: Generate Tag
       id: tag

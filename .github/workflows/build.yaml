@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Clonar el repositorio
-      uses: actions/checkout@v3
+    - name: Clone this repo
+      uses: actions/checkout@v4
       
-    - name: Clonar Micropython
+    - name: Clone Micropython now with smartconfig thanks to Walkline80
       run: git clone --recurse-submodules https://github.com/micropython/micropython.git
 
     - name: Clone repo smartconfig by Walkline80
@@ -30,7 +30,7 @@ jobs:
       run: git clone https://github.com/russhughes/s3lcd.git
 
     
-    - name: Copy tdt_config and some fonts like frozen modules
+    - name: Copy tdt_config and config_buttons
       run: |
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_buttons.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
@@ -80,12 +80,12 @@ jobs:
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/symbol.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/uppmat.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       
-    - name: Instalar dependencias
+    - name: Install dependencies
       run: |
        sudo apt-get update
        sudo apt-get install -y build-essential git wget flex bison gperf pkg-config python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
 
-    - name: Clonar ESP-IDF
+    - name: Clone ESP-IDF
       run: |
         mkdir -p esp
         cd esp
@@ -96,7 +96,7 @@ jobs:
         ./install.sh esp32s3
         cd
 
-    - name: Copiar configuracion
+    - name: Copy board configuration
       run: |
         cp -r ESP32_GENERIC_S3_N16R8 micropython/ports/esp32/boards/
 
@@ -156,5 +156,5 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         automatic_release_tag: ${{ env.TAG_NAME }}  # Usa el nombre del tag generado
-        title: "Release for version ${{ env.TAG_NAME }}"
+        title: "MicroPython release for version ${{ env.TAG_NAME }}"
         files: ./artifacts/*

@@ -34,11 +34,11 @@ jobs:
       run: |
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_buttons.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
-      # cp $GITHUB_WORKSPACE/s3lcd/examples/chango/chango_16.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
+       cp $GITHUB_WORKSPACE/s3lcd/examples/chango/chango_16.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
+       cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/gotheng.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/examples/chango/chango_32.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/examples/chango/chango_64.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/astrol.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
-      # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/gotheng.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/greekc.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/italict.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/lowmat.py "$GITHUB_WORKSPACE/micropython/ports/rp2/modules/"

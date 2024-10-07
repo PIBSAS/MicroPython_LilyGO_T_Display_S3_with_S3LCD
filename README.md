@@ -322,6 +322,22 @@ or
 Once activated install esptool:
 - (esp-env)PS C:....> ```pip install esptool```
 
+### NOTE IN WINDOWS:
+- If you get a PowerShell Scripts Policy Execution Exception that don't let you activate the Virtual Environment:
+
+ ````bash
+.\esp-env\Scripts\activate
+````
+
+- Then open a Terminal like Administrator and type:
+
+````bash
+Set-ExecutionPolicy Unrestricted
+````
+- Close the Terminal now you can activate the Python Virtual Environment.
+
+---
+
 
 ### Linux:
 - ```bash

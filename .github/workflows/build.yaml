@@ -34,10 +34,10 @@ jobs:
       run: |
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_buttons.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
-       cp $GITHUB_WORKSPACE/s3lcd/examples/cango/chango_16.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
-       cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/gotheng.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
-       cp $GITHUB_WORKSPACE/s3lcd/examples/chango/chango_32.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
-       cp $GITHUB_WORKSPACE/s3lcd/examples/chango/chango_64.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
+       cp "$GITHUB_WORKSPACE/s3lcd/examples/chango/chango_16.py" "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
+       cp "$GITHUB_WORKSPACE/s3lcd/fonts/vector/gotheng.py" "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
+       cp "$GITHUB_WORKSPACE/s3lcd/examples/chango/chango_32.py" "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
+       cp "$GITHUB_WORKSPACE/s3lcd/examples/chango/chango_64.py" "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/astrol.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/vector/lowmat.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
       # cp $GITHUB_WORKSPACE/s3lcd/fonts/bitmap/vga2_16x32.py "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
@@ -122,5 +122,5 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         automatic_release_tag: ${{ env.TAG_NAME }}  # Usa el nombre del tag generado
-        title: "MicroPython release for version ${{ env.TAG_NAME }}"
+        title: "MicroPython for LilyGo T-Display S3 with S3LCD Driver release version ${{ env.TAG_NAME }}"
         files: ./artifacts/*

@@ -24,12 +24,11 @@ jobs:
       run: git clone --recurse-submodules https://github.com/micropython/micropython.git
 
     - name: Clone repo smartconfig by Walkline80
-      run :  git clone https://gitee.com/walkline/micropython-smartconfig-cmodule.git smartconfig
+      run: git clone https://gitee.com/walkline/micropython-smartconfig-cmodule.git smartconfig
     
     - name: Clonar s3lcd
       run: git clone https://github.com/russhughes/s3lcd.git
 
-    
     - name: Copy tdt_config and config_buttons and fonts
       run: |
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
@@ -140,8 +139,7 @@ jobs:
         body: |
           Automated release for MicroPython.
           
-          ## What we get here:
-          - Added chango_16/32/64 and gotheng fonts 
+          ## What we get here: 
           - MicroPython with S3LCD Display Driver:
             - ```micropython.bin, bootloader.bin and partition-table.bin.```
           - MicroPython with S3LCD Display Driver and SmartConfig module:

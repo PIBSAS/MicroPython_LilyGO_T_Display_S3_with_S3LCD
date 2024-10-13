@@ -1,6 +1,7 @@
 """
 chango.py proportional font test for font2bitmap converter.
 """
+
 import time
 import gc
 import s3lcd
@@ -12,11 +13,13 @@ tft = tft_config.config(tft_config.WIDE)
 # Large fonts take a lot of memory, they should be frozen in the
 # firmware or cross-compiled using the mpy-cross compiler.
 #
-from chango import chango_16 as font_16
-from chango import chango_32 as font_32
-from chango import chango_64 as font_64
+
+import chango_16 as font_16
+import chango_32 as font_32
+import chango_64 as font_64
 
 gc.collect()
+
 
 def display_font(font):
 
@@ -52,6 +55,7 @@ def display_font(font):
         tft.show()  # show the screen
         column += width  # move the column past the character
 
+
 def main():
     try:
         tft.init()
@@ -64,4 +68,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

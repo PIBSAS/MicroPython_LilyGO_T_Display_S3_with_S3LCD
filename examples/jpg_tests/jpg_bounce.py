@@ -1,7 +1,10 @@
 """
 bounce_jpg.py
+
     Bounce a jpg around the display to test visibility clipping.
+
 """
+
 import gc
 import random
 import time
@@ -14,10 +17,12 @@ gc.collect()
 LOGO_WIDTH = 64
 LOGO_HEIGHT = 64
 
+
 def main():
     """
     Bounce a jpg around the display.
     """
+
     try:
         tft = tft_config.config(tft_config.WIDE)
 
@@ -32,7 +37,7 @@ def main():
 
         ticks = 1000 // 45
 
-        with open(f'jpg_tests/logo-{LOGO_WIDTH}x{LOGO_HEIGHT}.jpg', "rb") as file:
+        with open(f'logo-{LOGO_WIDTH}x{LOGO_HEIGHT}.jpg', "rb") as file:
             jpg_logo = file.read()
 
         while True:
@@ -54,7 +59,10 @@ def main():
             if time.ticks_ms() - last < ticks:
                 time.sleep_ms(ticks - (time.ticks_ms() - last))
 
+
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

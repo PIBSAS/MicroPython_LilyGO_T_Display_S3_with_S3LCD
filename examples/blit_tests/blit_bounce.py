@@ -1,7 +1,10 @@
 """
 blit_bounce.py
+
     Bounce a blitable buffer around the display to test visibility clipping.
+
 """
+
 import gc
 import random
 import time
@@ -14,10 +17,12 @@ gc.collect()
 LOGO_WIDTH = 64
 LOGO_HEIGHT = 64
 
+
 def main():
     """
     Decode and draw jpg on display using various methods
     """
+
     try:
         tft = tft_config.config(tft_config.WIDE)
 
@@ -54,4 +59,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

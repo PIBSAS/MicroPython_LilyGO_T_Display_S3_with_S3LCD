@@ -4,6 +4,7 @@ jpg_tests.py
     Randomly draw MicroPython logo on the display using various methods.
 
 """
+
 import gc
 import random
 import time
@@ -13,10 +14,12 @@ import s3lcd
 gc.enable()
 gc.collect()
 
+
 def main():
     """
     Decode and draw jpg on display using various methods
     """
+
     try:
         tft = tft_config.config(tft_config.WIDE)
 
@@ -24,11 +27,11 @@ def main():
         tft.init()
 
         # read jpg file into buffer without decoding
-        with open("jpg_tests/logo-64x64.jpg", "rb") as file:
+        with open("logo-64x64.jpg", "rb") as file:
             alien = file.read()
 
         # read and decode png file into a tuple containing (image, width, height)
-        decoded_bitmap = tft.jpg_decode("jpg_tests/logo-64x64.jpg")
+        decoded_bitmap = tft.jpg_decode("logo-64x64.jpg")
         bitmap_width = decoded_bitmap[1]
         bitmap_height = decoded_bitmap[2]
 
@@ -42,7 +45,7 @@ def main():
             start = time.ticks_ms()
             for _ in range(draw_count):
                 tft.jpg(
-                    "jpg_tests/logo-64x64.jpg",
+                    "logo-64x64.jpg",
                     random.randint(0, tft.width() - bitmap_width),
                     random.randint(0, tft.height() - bitmap_height),
                     True,
@@ -88,4 +91,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

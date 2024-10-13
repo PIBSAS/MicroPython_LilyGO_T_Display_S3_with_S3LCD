@@ -15,7 +15,7 @@ def main():
         tft.init()
         width=tft.width()
         height=tft.height()
-        image = f'jpg_tests/logo-{width}x{height}.jpg'
+        image = f'logo-{width}x{height}.jpg'
         print(f"Loading {image}")
         tft.jpg(image, 0, 0)
         tft.show()
@@ -24,3 +24,4 @@ def main():
         tft.deinit()
 
 main()
+# END CODE

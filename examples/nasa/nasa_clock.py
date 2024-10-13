@@ -12,21 +12,20 @@ nasaclock.py
     This Font Software is licensed under the SIL Open Font License, Version 1.1.
     This license is copied below, and is also available with a FAQ at:
     http://scripts.sil.org/OFL
+
 """
 import gc
 import sys
-import utime
+import time
 from machine import Pin, SPI, RTC
 import s3lcd
 import tft_config
-#from nasa import pacifico45 as font
-#from nasa import pacifico80 as font
-from nasa import pacifico100 as font
-#from nasa import pacifico150 as font
+import pacifico80 as font
 
 tft = tft_config.config(tft_config.WIDE)
 rtc = RTC()
 BCKGROUND_LOCK = 0  # prevents background change while > 0
+
 
 def cycle(items):
     """return the next item in a list"""
@@ -42,6 +41,7 @@ def cycle(items):
     while items:
         yield from items
 
+
 class Button:
     """
     Debounced pin handler
@@ -52,7 +52,7 @@ class Button:
     def __init__(self, pin, callback, trigger=Pin.IRQ_FALLING, debounce=350):
         self.callback = callback
         self.debounce = debounce
-        self._next_call = utime.ticks_ms() + self.debounce
+        self._next_call = time.ticks_ms() + self.debounce
         pin.irq(trigger=trigger, handler=self.debounce_handler)
 
     def call_callback(self, pin):
@@ -61,9 +61,10 @@ class Button:
 
     def debounce_handler(self, pin):
         """debounce the pin"""
-        if utime.ticks_ms() > self._next_call:
-            self._next_call = utime.ticks_ms() + self.debounce
+        if time.ticks_ms() > self._next_call:
+            self._next_call = time.ticks_ms() + self.debounce
             self.call_callback(pin)
+
 
 def hour_pressed(pin):
     """Increment the hour"""
@@ -72,12 +73,14 @@ def hour_pressed(pin):
     rtc.init((tm[0], tm[1], tm[2], tm[3], tm[4], tm[5] + 1, tm[6], tm[7]))
     BCKGROUND_LOCK = 10
 
+
 def minute_pressed(pin):
     """increment the minute"""
     global BCKGROUND_LOCK
     tm = rtc.datetime()
     rtc.init((tm[0], tm[1], tm[2], tm[3], tm[4] + 1, tm[5], tm[6], tm[7]))
     BCKGROUND_LOCK = 10
+
 
 def main():
     """
@@ -147,7 +150,7 @@ def main():
                 gc.collect()
 
                 # select the next image from the nasa_{WIDTH}x{HEIGHT} directory
-                image_file = f"nasa/nasa_{tft.width()}x{tft.height()}/{image}"
+                image_file = f"nasa_{tft.width()}x{tft.height()}/{image}"
 
                 # calculate the starting column for each time digit
                 digit_columns = [
@@ -182,7 +185,7 @@ def main():
                 last_time = "-----"
 
             # get the current hour and minute
-            _, _, _, hour, minute, _, _, _ = utime.localtime()
+            _, _, _, hour, minute, _, _, _ = time.localtime()
 
             # 12 hour time
             if hour == 0:
@@ -191,13 +194,13 @@ def main():
                 hour -= 12
 
             # format time  string as "HH:MM"
-            time = f"{hour:2d}:{minute:02d}"
+            clock = f"{hour:2d}:{minute:02d}"
 
             # loop through the time string
             for digit in range(5):
 
                 # Check if this digit has changed
-                if time[digit] != last_time[digit]:
+                if clock[digit] != last_time[digit]:
 
                     # digit 1 is the hour, change the background every hour
                     # digit 3 is the tens of the minute, change the background every 10 minutes
@@ -212,7 +215,7 @@ def main():
 
                     tft.write(
                         font,  # the font to write to the display
-                        time[digit],  # time string digit to write
+                        clock[digit],  # time string digit to write
                         digit_columns[digit],  # write to the correct column
                         time_row,  # write on row
                         time_color,  # color of time text
@@ -220,17 +223,19 @@ def main():
                     )  # transparent background
 
             # save the current time
-            last_time = time
+            last_time = clock
 
             # decrement the background lock
             if BCKGROUND_LOCK:
                 BCKGROUND_LOCK -= 1
 
             tft.show()
-            utime.sleep(0.5)
+            time.sleep(0.5)
             gc.collect()
 
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

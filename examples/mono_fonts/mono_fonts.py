@@ -3,14 +3,17 @@ mono_fonts.py test for monofont2bitmap converter and bitmap method. This is the 
 converting monofonts to bitmaps.  See the newer method in prop_fonts/chango.py that works with
 mono and proportional fonts using the write method.
 """
+
 import time
 import s3lcd
 import tft_config
+
 import inconsolata_16 as font_16
 import inconsolata_32 as font_32
-from mono_fonts import inconsolata_64 as font_64
+import inconsolata_64 as font_64
 
 tft = tft_config.config(tft_config.WIDE)
+
 
 def display_font(font, fast):
     tft.fill(s3lcd.BLUE)
@@ -30,6 +33,7 @@ def display_font(font, fast):
         if not fast:
             time.sleep(0.05)
 
+
 def main():
     fast = False
 
@@ -45,4 +49,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

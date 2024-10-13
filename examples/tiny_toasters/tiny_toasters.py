@@ -8,15 +8,17 @@ tiny_toasters.py - Flying Tiny Toasters for smaller displays (like the ST7735)
         python3 ./sprites2bitmap.py ttoasters.bmp 32 32 4 > ttoast_bitmaps.py
 
 """
+
 import gc
 import time
 import random
 import s3lcd
 import tft_config
-from tiny_toasters import ttoast_bitmaps as toast_bitmaps
+import ttoast_bitmaps as toast_bitmaps
 
 TOASTER_FRAMES = [0, 1, 2, 3]
 TOAST_FRAMES = [4]
+
 
 def collide(a_col, a_row, a_width, a_height, b_col, b_row, b_width, b_height):
     """return true if two rectangles overlap"""
@@ -26,6 +28,7 @@ def collide(a_col, a_row, a_width, a_height, b_col, b_row, b_width, b_height):
         and a_row + a_height >= b_row
         and a_row <= b_row + b_height
     )
+
 
 def random_start(tft, sprites, bitmaps, num):
     """
@@ -61,6 +64,7 @@ def random_start(tft, sprites, bitmaps, num):
         row = 0
 
     return col, row
+
 
 def main():
     class Toast:
@@ -173,4 +177,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

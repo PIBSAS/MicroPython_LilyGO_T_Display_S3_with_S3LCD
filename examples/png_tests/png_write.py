@@ -4,14 +4,18 @@ png_write.py
     Writes "Hello!" in the center of the display and saves the framebuffer to a png file.
 
 """
+
 import random
 import time
+
 import tft_config
 import vga1_8x8 as small
 import vga2_bold_16x32 as big
+
 import s3lcd
 
 tft = tft_config.config(tft_config.WIDE)
+
 
 def center(using_font, text, fg=s3lcd.WHITE, bg=s3lcd.BLACK):
     """
@@ -25,6 +29,7 @@ def center(using_font, text, fg=s3lcd.WHITE, bg=s3lcd.BLACK):
     height = using_font.HEIGHT
     tft.text(using_font, text, col, row, fg, bg)
     return (col, row, width, height)
+
 
 def main():
     """
@@ -42,4 +47,6 @@ def main():
     finally:
         tft_config.deinit(tft)
 
+
 main()
+# END CODE

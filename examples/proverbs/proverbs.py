@@ -2,13 +2,16 @@
 proverbs.py - Displays what I hope are chinese proverbs in simplified chinese to test UTF-8
     font support.
 """
+
 import time
 import s3lcd
 import tft_config
-#from proverbs import notosanssc20 as font
-from proverbs import notosanssc45 as font
+import notosanssc20 as font
+import notosanssc45 as font
+
 
 tft = tft_config.config(tft_config.WIDE)
+
 
 def cycle(p):
     """return the next item in a list"""
@@ -24,6 +27,7 @@ def cycle(p):
     while p:
         yield from p
 
+
 COLORS = (
     s3lcd.RED,
     s3lcd.GREEN,
@@ -36,7 +40,9 @@ COLORS = (
 
 COLOR = cycle(COLORS)
 
+
 def main():
+
     proverbs = [
         "一口吃不成胖子",
         "万事起头难",
@@ -83,4 +89,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

@@ -5,12 +5,15 @@ watch.py - Analog Watch Display using jpg for the face and filled polygons for t
 
     Previous version video: https://youtu.be/NItKb6umMc4
 """
+
 import time
 import math
 import s3lcd
 import tft_config
 
+
 tft = tft_config.config(tft_config.WIDE)
+
 
 def hand_polygon(length, radius):
     return [
@@ -24,10 +27,12 @@ def hand_polygon(length, radius):
         (0, 0),
     ]
 
+
 def main():
     """
     Draw analog watch face and update time
     """
+
     try:
         # enable display
         tft.init()
@@ -40,7 +45,7 @@ def main():
         center_y = radius // 2 + ofs_y - 1  # center of the face vertically
 
         # load and decode the watch face background
-        face_file = f"watch/face_{width}x{height}.jpg"
+        face_file = f"face_{width}x{height}.jpg"
         print(f"Loading {face_file}...")
         face = tft.jpg_decode(face_file)
         # create the polygons for the hour, minute and second hands
@@ -113,4 +118,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

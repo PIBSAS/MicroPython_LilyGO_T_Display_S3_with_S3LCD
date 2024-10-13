@@ -8,6 +8,7 @@ alien.py
     SIL OFL 1.1
 
 """
+
 import gc
 import random
 import time
@@ -17,10 +18,12 @@ import s3lcd
 gc.enable()
 gc.collect()
 
+
 def main():
     """
     Decode and draw png on display
     """
+
     try:
         tft = tft_config.config(tft_config.WIDE)
         tft.init()
@@ -31,10 +34,12 @@ def main():
         while True:
             x = random.randint(0, width - 32)
             y = random.randint(0, height - 32)
-            tft.png("png_tests/alien.png", x, y)
+            tft.png("alien.png", x, y)
             tft.show()
 
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

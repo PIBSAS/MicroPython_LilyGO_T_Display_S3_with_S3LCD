@@ -14,7 +14,7 @@ import random
 import tft_config
 import s3lcd
 
-from toasters import toast_bitmaps
+import toast_bitmaps
 
 TOASTER_FRAMES = [0, 1, 2, 3]
 TOAST_FRAMES = [4]
@@ -194,3 +194,4 @@ def main():
 
 
 main()
+# END CODE

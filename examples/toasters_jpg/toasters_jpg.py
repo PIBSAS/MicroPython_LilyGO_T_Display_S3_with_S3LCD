@@ -10,6 +10,7 @@ toasters_jpg.py
     spritesheet from CircuitPython_Flying_Toasters
     https://learn.adafruit.com/circuitpython-sprite-animation-pendant-mario-clouds-flying-toasters
 """
+
 import time
 import random
 import tft_config
@@ -17,10 +18,12 @@ import s3lcd
 
 tft = tft_config.config(tft_config.WIDE)
 
+
 class toast:
     """
     toast class to keep track of a sprites locaton and step
     """
+
     def __init__(self, sprites, x, y):
         self.sprites = sprites
         self.steps = len(sprites)
@@ -38,10 +41,12 @@ class toast:
         self.step %= self.steps
         self.x -= self.speed
 
+
 def main():
     """
     Draw and move sprite
     """
+
     try:
         # enable display and clear screen
         tft.init()
@@ -52,11 +57,11 @@ def main():
         height = 64
 
         # grab each sprite from the toaster.jpg sprite sheet
-        t1 = tft.jpg_decode("toasters_jpg/toaster.jpg", 0, 0, width, height)
-        t2 = tft.jpg_decode("toasters_jpg/toaster.jpg", width, 0, width, height)
-        t3 = tft.jpg_decode("toasters_jpg/toaster.jpg", width * 2, 0, width, height)
-        t4 = tft.jpg_decode("toasters_jpg/toaster.jpg", 0, height, width, height)
-        t5 = tft.jpg_decode("toasters_jpg/toaster.jpg", width, height, width, height)
+        t1 = tft.jpg_decode("toaster.jpg", 0, 0, width, height)
+        t2 = tft.jpg_decode("toaster.jpg", width, 0, width, height)
+        t3 = tft.jpg_decode("toaster.jpg", width * 2, 0, width, height)
+        t4 = tft.jpg_decode("toaster.jpg", 0, height, width, height)
+        t5 = tft.jpg_decode("toaster.jpg", width, height, width, height)
 
         TOASTERS = [t1[0], t2[0], t3[0], t4[0]]
         TOAST = [t5[0]]
@@ -93,4 +98,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

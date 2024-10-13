@@ -5,14 +5,17 @@ scroll.py
     Fonts heights must be even multiples of the screen height
     (i.e. 8 or 16 pixels high).
 """
+
 import time
 import s3lcd
 import tft_config
 import vga1_bold_16x32 as big
 import vga1_8x8 as small
 
+
 print(0)
 tft = tft_config.config(tft_config.WIDE)
+
 
 def cycle(p):
     try:
@@ -25,6 +28,7 @@ def cycle(p):
         p = cache
     while p:
         yield from p
+
 
 def main():
 
@@ -80,7 +84,10 @@ def main():
                     tft.scroll(0, -2)
                     tft.show()
 
+
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

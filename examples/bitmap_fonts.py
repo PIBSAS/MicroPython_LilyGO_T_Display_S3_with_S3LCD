@@ -11,7 +11,7 @@ import tft_config
 import vga1_8x8 as font1
 import vga1_8x16 as font2
 import vga1_bold_16x16 as font3
-import vga1_bold_16x32 as font4
+import vga2_bold_16x32 as font4
 
 
 tft = tft_config.config(tft_config.WIDE)
@@ -46,4 +46,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

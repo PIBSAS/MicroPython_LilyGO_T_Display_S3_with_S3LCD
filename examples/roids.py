@@ -1,6 +1,7 @@
 """
 roids.py - Asteroids style game demo using polygons.
 """
+
 import math
 import random
 import utime
@@ -9,17 +10,21 @@ import s3lcd
 import tft_config
 import tft_buttons as Buttons
 
+
 tft = tft_config.config(tft_config.WIDE)
 buttons = Buttons.Buttons()
+
 
 def main():
     '''
     Game on!
     '''
+
     class Poly():
         '''
         Poly class to keep track of a polygon based sprite
         '''
+
         def __init__(
                 self,
                 # list (x,y) tuples of convex polygon, must be closed
@@ -366,3 +371,4 @@ def main():
         tft.deinit()
 
 main()
+# END CODE

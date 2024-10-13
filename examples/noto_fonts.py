@@ -10,13 +10,16 @@ import NotoSans_32 as noto_sans
 import NotoSerif_32 as noto_serif
 import NotoSansMono_32 as noto_mono
 
+
 tft = tft_config.config(tft_config.WIDE)
+
 
 def center(font, s, row, color=s3lcd.WHITE):
     screen = tft.width()  # get screen width
     width = tft.write_len(font, s)  # get the width of the string
     col = tft.width() // 2 - width // 2 if width and width < screen else 0
     tft.write(font, s, col, row, color)  # and write the string
+
 
 def main():
     try:
@@ -42,4 +45,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

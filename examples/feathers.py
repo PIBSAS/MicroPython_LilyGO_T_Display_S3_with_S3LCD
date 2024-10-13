@@ -5,7 +5,7 @@ feathers.py
 
 import random
 import math
-import time
+import utime
 import s3lcd
 import tft_config
 
@@ -104,4 +104,6 @@ def main():
     finally:
         tft.deinit()
 
+
 main()
+# END CODE

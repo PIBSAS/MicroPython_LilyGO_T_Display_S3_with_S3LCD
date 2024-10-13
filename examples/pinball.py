@@ -51,6 +51,7 @@ import s3lcd
 import tft_config
 import tft_buttons
 
+
 # ------------ set constants  ------------
 
 #
@@ -76,6 +77,7 @@ PRESSED = 0  # value when button is pressed
 
 # ------------ end constants ------------
 
+
 def color_wheel(WheelPos):
     """returns a 565 color from the given position of the color wheel"""
     WheelPos = (255 - WheelPos) % 255
@@ -90,6 +92,7 @@ def color_wheel(WheelPos):
     WheelPos -= 170
     return s3lcd.color565(WheelPos * 3, 255 - WheelPos * 3, 0)
 
+
 def text_color():
     """return the next color from the color wheel"""
     color = 0
@@ -97,13 +100,16 @@ def text_color():
         yield color_wheel(color)
         color = (color + 1) % 255
 
+
 def scale_x(pos):
     """scale position to screen x coordinate"""
     return int(pos.x * SCALE_X)
 
+
 def scale_y(pos):
     """scale position to screen y coordinate"""
     return int(HEIGHT - pos.y * SCALE_Y)
+
 
 def pos_to_tuple(pos):
     """convert pos to screen (x,y) coordinate tuple"""
@@ -176,7 +182,9 @@ class Vector2:
         """return a perpendicular vector"""
         return Vector2(-self.y, self.x, self.color)
 
+
 # ----------------------------------------------
+
 
 def closest_point_on_segment(p, a, b):
     """return the closest point on the segment ab to point p"""
@@ -189,7 +197,9 @@ def closest_point_on_segment(p, a, b):
     closest = a.clone()
     return closest.add(ab, t)
 
+
 # object classes ---------------------------------------
+
 
 class Ball:
     """Class to track a ball"""
@@ -211,6 +221,7 @@ class Ball:
         self.vel.add(gravity, dt)
         self.pos.add(self.vel, dt)
 
+
 class Obstacle:
     """Class to contain an obstacle"""
 
@@ -220,6 +231,7 @@ class Obstacle:
         self.size = int(radius * SCALE_RADIUS)
         self.pos = pos.clone()
         self.pushVel = pushVel
+
 
 class Flipper:
     """Class to contain a flipper"""
@@ -333,6 +345,7 @@ class Flipper:
         )
 
         tft.fill_circle(scale_x(tip), scale_y(tip), self.size, color)
+
 
 class Table:
     """Class to contain the table"""
@@ -508,7 +521,9 @@ class Table:
                 else:
                     self.game_over = True
 
+
 # ------------ collision handling ------------
+
 
 def handle_ball_ball_collision(ball1, ball2):
     """handle a collision between two balls"""
@@ -540,7 +555,9 @@ def handle_ball_ball_collision(ball1, ball2):
     ball1.vel.add(direction, newV1 - v1)
     ball2.vel.add(direction, newV2 - v2)
 
+
 # ------------------------
+
 
 def handle_ball_obstacle_collision(ball, obstacle):
     """handle a collision between a ball and an obstacle"""
@@ -567,7 +584,9 @@ def handle_ball_obstacle_collision(ball, obstacle):
             table.multiball = 0
             table.add_ball()
 
+
 # ------------------------
+
 
 def handle_ball_flipper_collision(ball, flipper):
     """handle a collision between a ball and a flipper"""
@@ -593,7 +612,9 @@ def handle_ball_flipper_collision(ball, flipper):
     vnew = surfaceVel.dot(direction)
     ball.vel.add(direction, vnew - v)
 
-# --------------------------------------------------------
+
+# ------------------------
+
 
 def handle_ball_border_collision(ball, border):
     """handle a collision between a ball and a border"""
@@ -641,30 +662,37 @@ def handle_ball_border_collision(ball, border):
     ball.vel.add(d, vnew - v)
     return wall
 
+
 # ------------ Text routines ------------
+
 
 def center_on(text, y, color=s3lcd.WHITE, fnt=font):
     """center text on y"""
     x = (WIDTH >> 1) - ((fnt.WIDTH * len(text)) >> 1)
     tft.text(fnt, text, x, int(HEIGHT - y * SCALE_Y), color, BACKGROUND)
 
+
 def print_at(text, x, y, color=s3lcd.WHITE, fnt=font):
     """print text at x,y"""
     tft.text(fnt, text, int(x * SCALE_X), int(HEIGHT - y * SCALE_Y), color, BACKGROUND)
+
 
 def print_right(text, y, color=s3lcd.WHITE, fnt=font):
     """print text right aligned at y"""
     x = WIDTH - (fnt.WIDTH * len(text))
     tft.text(fnt, text, x, int(HEIGHT - y * SCALE_Y), color, BACKGROUND)
 
+
 def update_score():
     """update the score"""
     print_right(f"{MULTIBALL_SCORE-table.multiball:2}", 0.25)
     print_right(f"{table.score:04}", 0.08)
 
+
 def update_ball():
     """update the ball count"""
     print_at(f"B {table.ball}", 0.0, 0.08)
+
 
 def ball_countdown():
     """countdown before the ball is released"""
@@ -677,6 +705,7 @@ def ball_countdown():
     table.draw_border()
     table.draw_obstacles()
 
+
 def print_game_over(color=s3lcd.RED):
     """print game over"""
     center_on("GAME", 1.65, color, bold_font)
@@ -686,6 +715,7 @@ def print_game_over(color=s3lcd.RED):
     center_on(" To ", 0.62, color, font)
     center_on(" Start ", 0.52, color, font)
     tft.show()
+
 
 def game_over():
     """game over, man, game over"""
@@ -707,7 +737,9 @@ def game_over():
 
     tft.fill(BACKGROUND)
 
+
 # ------------ the big show ------------
+
 
 def start_game():
     """start the game and loop"""
@@ -742,6 +774,7 @@ def start_game():
     finally:
         if hasattr(tft, "deinit") and callable(tft.deinit):
             tft.deinit()
+
 
 # ------------ set up the buttons ------------
 
@@ -785,7 +818,9 @@ SCALE_X = WIDTH
 SCALE_Y = HEIGHT / MAX_HEIGHT
 SCALE_RADIUS = min(SCALE_X, SCALE_Y)
 
+
 # ------- set up the table and start game ---------
 
 table = Table()
 start_game()
+# END CODE

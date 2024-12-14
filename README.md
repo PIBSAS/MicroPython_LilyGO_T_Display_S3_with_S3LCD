@@ -1,3 +1,5 @@
+⚠️ Micropython + SmartConfig now in his own Repo [here](https://github.com/PIBSAS/MicroPython_LiLyGo_TDisplay_S3_SmartConfig/releases) ⚠️
+
 # MicroPython + S3LCD para LilyGo T-Display S3 ESP32-S3-WROOM-1-N16R8
 
 ## Datasheet:

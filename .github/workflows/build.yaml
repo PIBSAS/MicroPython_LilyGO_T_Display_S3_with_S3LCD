@@ -23,8 +23,8 @@ jobs:
     - name: Clone Micropython now with smartconfig thanks to Walkline80
       run: git clone --recurse-submodules https://github.com/micropython/micropython.git
 
-    - name: Clone repo smartconfig by Walkline80
-      run: git clone https://gitee.com/walkline/micropython-smartconfig-cmodule.git smartconfig
+  #  - name: Clone repo smartconfig by Walkline80
+  #    run: git clone https://gitee.com/walkline/micropython-smartconfig-cmodule.git smartconfig
     
     - name: Clonar s3lcd
       run: git clone https://github.com/russhughes/s3lcd.git
@@ -54,7 +54,7 @@ jobs:
       run: |
         mkdir -p esp
         cd esp
-        git clone -b v5.2.2 --recursive https://github.com/espressif/esp-idf.git
+        git clone -b v5.3.2 --recursive https://github.com/espressif/esp-idf.git
         cd esp-idf/tools
         python3 idf_tools.py install cmake
         cd ..
@@ -65,28 +65,28 @@ jobs:
       run: |
         cp -r ESP32_GENERIC_S3_N16R8 micropython/ports/esp32/boards/
 
-    - name: Compile with S3LCD + SmartConfig
-      continue-on-error: true
-      run: |
-        source esp/esp-idf/export.sh
-        cd micropython/
-        make -C mpy-cross
-        export IDF_TARGET=esp32s3
-        cd ports/esp32/
-        idf.py \
-          -D MICROPY_BOARD=ESP32_GENERIC_S3_N16R8 \
-          -D MICROPY_BOARD_DIR="$GITHUB_WORKSPACE/micropython/ports/esp32/boards/ESP32_GENERIC_S3_N16R8" \
-          -D USER_C_MODULES="$GITHUB_WORKSPACE/micropython.cmake" \
-          -D MICROPY_FROZEN_MANIFEST="$GITHUB_WORKSPACE/s3lcd/manifest.py" \
-          -B build-ESP32_GENERIC_S3_N16R8 build
+  #  - name: Compile with S3LCD + SmartConfig
+  #    continue-on-error: true
+  #    run: |
+  #      source esp/esp-idf/export.sh
+  #      cd micropython/
+  #      make -C mpy-cross
+  #      export IDF_TARGET=esp32s3
+  #      cd ports/esp32/
+  #      idf.py \
+  #        -D MICROPY_BOARD=ESP32_GENERIC_S3_N16R8 \
+  #        -D MICROPY_BOARD_DIR="$GITHUB_WORKSPACE/micropython/ports/esp32/boards/ESP32_GENERIC_S3_N16R8" \
+  #        -D USER_C_MODULES="$GITHUB_WORKSPACE/micropython.cmake" \
+  #        -D MICROPY_FROZEN_MANIFEST="$GITHUB_WORKSPACE/s3lcd/manifest.py" \
+  #        -B build-ESP32_GENERIC_S3_N16R8 build
     
-    - name: Move binaries with S3LCD + SmartConfig
-      if: success() || failure()
-      run: |
-        mkdir -p ./artifacts
-        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/micropython.bin ./artifacts/micropython_smart.bin || true
-        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/bootloader/bootloader.bin ./artifacts/bootloader_smart.bin || true
-        cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/partition_table/partition-table.bin ./artifacts/partition-table_smart.bin || true
+  #  - name: Move binaries with S3LCD + SmartConfig
+  #    if: success() || failure()
+  #    run: |
+  #      mkdir -p ./artifacts
+  #      cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/micropython.bin ./artifacts/micropython_smart.bin || true
+  #      cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/bootloader/bootloader.bin ./artifacts/bootloader_smart.bin || true
+  #      cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/partition_table/partition-table.bin ./artifacts/partition-table_smart.bin || true
 
     - name: Compilar MicroPython + S3LCD
       continue-on-error: true
@@ -142,8 +142,7 @@ jobs:
           ## What we get here: 
           - MicroPython with S3LCD Display Driver:
             - ```micropython.bin, bootloader.bin and partition-table.bin.```
-          - MicroPython with S3LCD Display Driver and SmartConfig module:
-            - ```micropython_smart.bin, bootloader_smart.bin and partition-table_smart.bin.```
+
           # Instructions
             You need to have some dependencies pre-instaled in your OS:
             - Python 3
@@ -173,7 +172,7 @@ jobs:
           pip install esptool
           ````
           
-          ### Put ESP32-S3-WROOM-1 N16R8 in BOOTLOADER MODE:
+          ### Put ESP32-S3-WROOM-1 N16R8 in BOOTLOADER MODE(This is not really necesary):
           - With USB cable on USB COM Port, press BOOT button then RST button, release RST, then release BOOT button. Or unplug, press BOOT button meanwhile you plug in the usb cable to PC or SBC like a Raspberry Pi.
           
           ### Erase Flash:
@@ -185,17 +184,6 @@ jobs:
           - Put 3 binaries in the same folder you are executing the steps, example Downloads folder, you need to be in that folder where are the binaries.
           ````bash
           python -m esptool --chip esp32s3 -b 460800 --before default_reset --after no_reset write_flash --flash_mode dio --flash_size 16MB --flash_freq 80m 0x0 bootloader.bin 0x8000 partition-table.bin 0x10000 micropython.bin
-          ````
-          
-          ### Erase Flash:
-          #### Step for MicroPython + S3LCD + SmartConfig:
-          ````bash
-          python -m esptool --chip esp32s3 erase_flash
-          ````
-          ### Then Flash:
-          - Put 3 binaries in the same folder you are executing the steps, example Downloads folder, you need to be in that folder where are the binaries.
-          ````bash
-          python -m esptool --chip esp32s3 -b 460800 --before default_reset --after no_reset write_flash --flash_mode dio --flash_size 16MB --flash_freq 80m 0x0 bootloader_smart.bin 0x8000 partition-table_smart.bin 0x10000 micropython_smart.bin
           ````
           
           ## Linux:
@@ -226,18 +214,7 @@ jobs:
           ````bash
           python -m esptool --chip esp32s3 -b 460800 --before default_reset --after no_reset write_flash --flash_mode dio --flash_size 16MB --flash_freq 80m 0x0 bootloader.bin 0x8000 partition-table.bin 0x10000 micropython.bin
           ````
-          
-          ### Erase Flash:
-          #### Step for MicroPython + S3LCD + SmartConfig:
-          ````bash
-          python -m esptool --chip esp32s3 erase_flash
-          ````
-          ### Then Flash:
-          - Put 3 binaries in the same folder you are executing the steps, example Downloads folder, you need to be in that folder where are the binaries.
-          ````bash
-          python -m esptool --chip esp32s3 -b 460800 --before default_reset --after no_reset write_flash --flash_mode dio --flash_size 16MB --flash_freq 80m 0x0 bootloader_smart.bin 0x8000 partition-table_smart.bin 0x10000 micropython_smart.bin
-          ````
-          
+                    
           ### NOTE IN WINDOWS:
           - If you get a PowerShell Scripts Policy Execution Exception that don't let you activate the Virtual Environment:
           

@@ -29,16 +29,21 @@ jobs:
     - name: Parchear s3lcd.c para ESP-IDF v5.4.2
       run: sed -i 's/self->bus_handle.spi = NULL;/self->bus_handle.spi = 0;/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd.c
 
+    - name: Aplicar parche para errores de mp_raise_ValueError
+      run: |
+        sed -i 's/mp_raise_ValueError(/mp_raise_ValueError(MP_ERROR_TEXT(/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd_i80_bus.c
+        sed -i 's/);/));/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd_i80_bus.c
+
     - name: Copy tdt_config and config_buttons and fonts
       run: |
-       cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
-       cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_buttons.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
-       cp "$GITHUB_WORKSPACE/s3lcd/examples/chango/chango_16.py" "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
+        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
+        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_buttons.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
+        cp "$GITHUB_WORKSPACE/s3lcd/examples/chango/chango_16.py" "$GITHUB_WORKSPACE/micropython/ports/esp32/modules/"
       
     - name: Install dependencies
       run: |
-       sudo apt-get update
-       sudo apt-get install -y build-essential git wget flex bison gperf pkg-config python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+        sudo apt-get update
+        sudo apt-get install -y build-essential git wget flex bison gperf pkg-config python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
 
     - name: Clone ESP-IDF
       run: |
@@ -58,7 +63,6 @@ jobs:
     - name: Copiar tabla de particiones personalizada
       run: |
         cp "$GITHUB_WORKSPACE/ESP32_GENERIC_S3_N16R8/partitions-16MiB.csv" "$GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiB.csv"
-
 
     - name: Compilar MicroPython + S3LCD
       continue-on-error: true

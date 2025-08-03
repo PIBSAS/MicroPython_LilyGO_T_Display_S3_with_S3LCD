@@ -64,7 +64,7 @@ jobs:
         cp "$GITHUB_WORKSPACE/ESP32_GENERIC_S3_N16R8/partitions-16MiB.csv" "$GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiB.csv"
 
     - name: Compilar MicroPython + S3LCD
-      continue-on-error: true
+      # continue-on-error: true
       run: |
         source esp/esp-idf/export.sh
         cd micropython/
@@ -79,7 +79,6 @@ jobs:
 
     
     - name: Mover binarios MicroPython + S3LCD
-      if: success() || failure()
       run: |
         mkdir -p ./artifacts
         cp micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8_no_smart/micropython.bin ./artifacts/micropython.bin || true
@@ -105,7 +104,14 @@ jobs:
     - name: Generate Tag
       id: tag
       run: echo "TAG_NAME=release-$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
-      
+
+    - name: Verificar existencia de los tres binarios
+      run: |
+        if [ ! -f ./artifacts/micropython.bin ] || [ ! -f ./artifacts/bootloader.bin ] || [ ! -f ./artifacts/partition-table.bin ]; then
+          echo "Falta uno o más archivos binarios necesarios, cancelando release."
+          exit 1
+        fi
+    
     - name: GH Release
       uses: softprops/action-gh-release@v2.0.8
       with:

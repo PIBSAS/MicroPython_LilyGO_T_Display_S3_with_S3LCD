@@ -26,6 +26,9 @@ jobs:
     - name: Clonar s3lcd
       run: git clone https://github.com/russhughes/s3lcd.git
 
+    - name: Parchear s3lcd.c para ESP-IDF v5.4.2
+      run: sed -i 's/self->bus_handle.spi = NULL;/self->bus_handle.spi = 0;/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd.c
+
     - name: Copy tdt_config and config_buttons and fonts
       run: |
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"

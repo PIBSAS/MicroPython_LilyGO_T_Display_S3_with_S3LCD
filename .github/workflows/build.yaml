@@ -52,6 +52,11 @@ jobs:
       run: |
         cp -r ESP32_GENERIC_S3_N16R8 micropython/ports/esp32/boards/
 
+    - name: Copiar tabla de particiones personalizada
+      run: |
+        cp "$GITHUB_WORKSPACE/ESP32_GENERIC_S3_N16R8/partitions-16MiB.csv" "$GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiB.csv"
+
+
     - name: Compilar MicroPython + S3LCD
       continue-on-error: true
       run: |

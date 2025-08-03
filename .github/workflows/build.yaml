@@ -22,9 +22,6 @@ jobs:
       
     - name: Clone Micropython now with smartconfig thanks to Walkline80
       run: git clone --recurse-submodules https://github.com/micropython/micropython.git
-
-  #  - name: Clone repo smartconfig by Walkline80
-  #    run: git clone https://gitee.com/walkline/micropython-smartconfig-cmodule.git smartconfig
     
     - name: Clonar s3lcd
       run: git clone https://github.com/russhughes/s3lcd.git

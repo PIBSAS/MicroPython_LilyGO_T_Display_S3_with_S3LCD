@@ -31,8 +31,7 @@ jobs:
 
     - name: Aplicar parche para errores de mp_raise_ValueError
       run: |
-        sed -i 's/mp_raise_ValueError(/mp_raise_ValueError(MP_ERROR_TEXT(/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd_i80_bus.c
-        sed -i 's/);/));/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd_i80_bus.c
+        sed -i 's/mp_raise_ValueError(\(.*\));/mp_raise_ValueError(MP_ERROR_TEXT(\1));/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd_i80_bus.c
 
     - name: Copy tdt_config and config_buttons and fonts
       run: |

@@ -32,9 +32,9 @@ jobs:
         echo "PYTHON_VER=${PYTHON_VER}" | tee -a "$GITHUB_OUTPUT"
 
     - name: Show detected versions
-        run: |
-          echo "ESP-IDF version: ${{ steps.idf_ver.outputs.IDF_VER }}"
-          echo "Python version:  ${{ steps.idf_ver.outputs.PYTHON_VER }}"
+      run: |
+        echo "ESP-IDF version: ${{ steps.idf_ver.outputs.IDF_VER }}"
+        echo "Python version:  ${{ steps.idf_ver.outputs.PYTHON_VER }}"
           
     - name: Setup Python from ci.sh
       uses: actions/setup-python@v5.6.0

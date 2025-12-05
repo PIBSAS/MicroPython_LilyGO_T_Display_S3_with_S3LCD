@@ -19,7 +19,7 @@ jobs:
       IDF_CCACHE_ENABLE: 1
     steps:
     - name: Clone this repo
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@v6.0.1
       
     - name: Clone Micropython
       run: git clone --recurse-submodules https://github.com/micropython/micropython.git
@@ -38,7 +38,7 @@ jobs:
         echo "Python version:  ${{ steps.idf_ver.outputs.PYTHON_VER }}"
           
     - name: Setup Python from ci.sh
-      uses: actions/setup-python@v6.0.0
+      uses: actions/setup-python@v6.1.0
       with:
         python-version: ${{ steps.idf_ver.outputs.PYTHON_VER }}
     
@@ -61,7 +61,9 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y git wget cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+        sudo apt-get install -y git wget cmake ninja-build ccache
+        pip3 install --upgrade pip
+        pip3 install pyelftools ar
     
     - name: Cache ESP-IDF and environment
       id: cache-esp

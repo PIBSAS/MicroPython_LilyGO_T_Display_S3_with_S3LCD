@@ -136,6 +136,13 @@ jobs:
              BOARD=ESP32_GENERIC_S3_N16R8 \
              USER_C_MODULES=${{ github.workspace }}/s3lcd/src/micropython.cmake \
              FROZEN_MANIFEST=${{ github.workspace }}/s3lcd/manifest.py
+    - name: Mostrar logs de error CMake
+      if: failure()
+      run: |
+        echo "STDERR:"
+        cat micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/log/idf_py_stderr_output_* || true
+        echo "STDOUT:"
+        cat micropython/ports/esp32/build-ESP32_GENERIC_S3_N16R8/log/idf_py_stdout_output_* || true
 
     - name: Mover binarios MicroPython + S3LCD
       run: |

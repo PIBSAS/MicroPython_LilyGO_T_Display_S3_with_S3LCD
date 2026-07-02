@@ -160,14 +160,14 @@ jobs:
       uses: softprops/action-gh-release@v3
       with:
         tag_name: ${{ env.TAG_NAME }}
-        name: "MicroPython for LilyGo T-Display S3 with S3LCD Driver and SmartConfig by Walkline80 release version ${{ env.MPY_VERSION }} (Build ${{ env.TAG_NAME }})"
+        name: "MicroPython for LilyGo T-Display S3 Octal SPIRAM with S3LCD Driver release version ${{ env.MPY_VERSION }} (Build ${{ env.TAG_NAME }})"
         body: |
           Automated release for MicroPython.
           
           ## What we get here:
-          - MicroPython with S3LCD Display Driver and SmartConfig module:
+          - MicroPython with S3LCD Display Driver:
             - ```firmware.bin, micropython.bin, bootloader.bin and partition-table.bin.```
-            `firmware`has `micropython.bin + bootloader.bin + partition-table.bin` in just one file.
+            `firmware` has `micropython.bin + bootloader.bin + partition-table.bin` in just one file.
             
           # Instructions
             You need to have some dependencies pre-instaled in your OS:

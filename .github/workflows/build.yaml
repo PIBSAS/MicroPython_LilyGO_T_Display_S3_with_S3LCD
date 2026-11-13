@@ -42,10 +42,16 @@ jobs:
       run: |
         sed -i 's/mp_raise_ValueError(\(.*\));/mp_raise_ValueError(MP_ERROR_TEXT(\1));/' $GITHUB_WORKSPACE/s3lcd/src/s3lcd_i80_bus.c
     
-    - name: Copy tdt_config and tft__buttons
+    - name: Copy tdt_config,tft__buttons and clean
       run: |
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_config.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
        cp "$GITHUB_WORKSPACE/s3lcd/examples/configs/t-display-s3/tft_buttons.py" "$GITHUB_WORKSPACE/s3lcd/modules/"
+       # Eliminar módulos innecesarios para esta placa para reducir tamaño de firmware
+       rm -f "$GITHUB_WORKSPACE/s3lcd/modules/axp202c.py"
+       rm -f "$GITHUB_WORKSPACE/s3lcd/modules/df.py"
+       rm -f "$GITHUB_WORKSPACE/s3lcd/modules/focaltouch.py"
+       rm -f "$GITHUB_WORKSPACE/s3lcd/modules/mf.py"
+       rm -f "$GITHUB_WORKSPACE/s3lcd/modules/sdcard.py"
       
     - name: Install dependencies
       run: |
@@ -100,7 +106,7 @@ jobs:
         cp "$GITHUB_WORKSPACE/ESP32_GENERIC_S3_N16R8/partitions-16MiB.csv" "$GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiB.csv"
     
     - name: Crear partitions-16MiBplus.csv personalizado
-      if: true
+      if: false
       run: |
         cat > $GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiBplus.csv << 'EOF'
         # Name,   Type, SubType, Offset,  Size, Flags
@@ -117,7 +123,7 @@ jobs:
         cat $GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiBplus.csv
     
     - name: Modify sdkconfig.base for 16MB flash
-      if: true
+      if: false
       run: |
         # Cambiar la configuración de flash a 16MB
         sed -i 's/CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y/CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y/' $GITHUB_WORKSPACE/micropython/ports/esp32/boards/sdkconfig.base

@@ -100,7 +100,7 @@ jobs:
         cp "$GITHUB_WORKSPACE/ESP32_GENERIC_S3_N16R8/partitions-16MiB.csv" "$GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiB.csv"
     
     - name: Crear partitions-16MiBplus.csv personalizado
-      if: false
+      if: true
       run: |
         cat > $GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiBplus.csv << 'EOF'
         # Name,   Type, SubType, Offset,  Size, Flags
@@ -117,7 +117,7 @@ jobs:
         cat $GITHUB_WORKSPACE/micropython/ports/esp32/partitions-16MiBplus.csv
     
     - name: Modify sdkconfig.base for 16MB flash
-      if: false
+      if: true
       run: |
         # Cambiar la configuración de flash a 16MB
         sed -i 's/CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y/CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y/' $GITHUB_WORKSPACE/micropython/ports/esp32/boards/sdkconfig.base
